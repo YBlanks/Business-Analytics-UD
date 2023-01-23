@@ -1,0 +1,43 @@
+/* Query 1 */
+
+SELECT g.Name AS music_genre,
+       COUNT(1) AS most_purchased
+FROM Genre g
+JOIN Track t ON g.GenreId = t.GenreId
+JOIN InvoiceLine ivl ON t.TrackId = ivl.TrackId
+GROUP BY g.Name
+ORDER BY most_purchased DESC;
+
+/* Query 2 */
+
+SELECT e.FirstName,
+       e.LastName,
+       COUNT(*) total_orders
+FROM Invoice i
+JOIN Customer c ON c.CustomerId = i.CustomerId
+JOIN Employee e ON c.SupportRepId= e.EmployeeId
+GROUP BY e.FirstName,
+         e.LastName
+ORDER BY total_orders;
+
+/* Query 3 */
+
+SELECT Artist.Name,
+       COUNT(Album.ArtistID) total_album
+FROM Album
+JOIN Artist ON Album.ArtistId=Artist.ArtistId
+GROUP BY Artist.Name
+ORDER BY total_album DESC
+LIMIT 5;
+
+/* Query 4 */
+
+SELECT c.FirstName,
+       c.LastName,
+       SUM(total) total_sales
+FROM invoice i
+JOIN customer c ON c.CustomerId = i.CustomerId
+GROUP BY c.CustomerId
+ORDER BY total_sales DESC
+LIMIT 5;
+
